@@ -1,0 +1,216 @@
+{{ extend './layout2.html' }}
+
+{{ block 'title' }}
+<title>编辑区域</title>
+{{ /block }}
+
+{{ block 'head' }}
+<link href="../public/admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="../public/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="../public/admin/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+<link href="../public/admin/css/animate.css" rel="stylesheet">
+<link href="../public/admin/css/style.css" rel="stylesheet">
+
+<link href="../public/admin/css/plugins/clockpicker/clockpicker.css" rel="stylesheet">
+<link href="../public/admin/css/plugins/datapicker/datepicker3.css" rel="stylesheet">
+{{ /block }}
+
+{{ block 'content'}}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>新建区域</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">仓库列表</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/region/mange?id={{warehouse_id}}">区域管理</a>
+            </li>
+            <li class="breadcrumb-item">
+                <strong>编辑区域</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5 style="padding-right: 30px">编辑区域</h5>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <!-- <button type="button" id="addUser" class="btn btn-primary" >新建用户</button> -->
+                </div>
+                <div class="ibox-content">
+                    <form action="/region/edit" method="post" id="update_region_form">
+                        <input type="hidden" class="form-control" id="" name="warehouse_region_id" required minlength="2"
+                            maxlength="30" value="{{region.warehouse_region_id}}">
+                        <input type="hidden" class="form-control" id="" name="_id" required minlength="2"
+                            maxlength="30" value="{{region._id}}">
+                        <input type="hidden" class="form-control" id="" name="old_equipment_id" required minlength="2"
+                            maxlength="30" value="{{region.equipment_region_id}}">
+                        <div class="form-group">
+                            <label for="">区域编号</label>
+                            <input type="text" class="form-control" id="region_id" name="region_id" required minlength="2"
+                                maxlength="30" value="{{region.region_id}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">区域名称</label>
+                            <input type="text" class="form-control" id="region_name" name="region_name" required minlength="2"
+                                maxlength="30" value="{{region.region_name}}">
+                        </div>
+                        <div class="form-group">
+                            <label for="">绑定设备</label>
+                            <div><select class="form-control m-b" id="equipment_region_id" name="equipment_region_id">
+                                    <option value="{{region.equipment_region_id}}" selected="selected"> {{region.equipment_region_id}}</option>
+                                    {{each equipments}}
+                                    <option value="{{$value.equipment_id}}">{{$value.equipment_id}}</option>
+                                    {{/each}}
+                                </select>
+                            </div>
+                        </div>
+                        <div class="form-group" id="data">
+                            <label for="">堆放时间</label>
+                            <div class="input-group date">
+                                <span class="input-group-addon"><i class="fa fa-calendar"></i></span><input type="text"
+                                    class="form-control" name="region_regtime" id='region_regtime' value="{{region.region_regtime}}">
+                            </div>
+                        </div>
+                        <button type="button" onclick="upDateRegion()" class="btn btn-default">提交</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ /block }}
+
+{{ block 'script'}}
+<!-- Mainly scripts -->
+<script src="../public/admin/js/jquery-3.1.1.min.js"></script>
+<script src="../public/admin/js/popper.min.js"></script>
+<script src="../public/admin/js/bootstrap.js"></script>
+<script src="../public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../public/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="../public/admin/js/plugins/dataTables/datatables.min.js"></script>
+<script src="../public/admin/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../public/admin/js/inspinia.js"></script>
+<script src="../public/admin/js/plugins/pace/pace.min.js"></script>
+
+<!-- Clock picker -->
+<script src="../public/admin/js/plugins/clockpicker/clockpicker.js"></script>
+
+<!-- Date range use moment.js same as full calendar plugin -->
+<script src="../public/admin/js/plugins/fullcalendar/moment.min.js"></script>
+
+<!-- Date range picker -->
+<script src="../public/admin/js/plugins/daterangepicker/daterangepicker.js"></script>
+<!-- Chosen -->
+<script src="../public/admin/js/plugins/chosen/chosen.jquery.js"></script>
+
+<!-- JSKnob -->
+<script src="../public/admin/js/plugins/jsKnob/jquery.knob.js"></script>
+
+<!-- Input Mask-->
+<script src="../public/admin/js/plugins/jasny/jasny-bootstrap.min.js"></script>
+
+<!-- Data picker -->
+<script src="../public/admin/js/plugins/datapicker/bootstrap-datepicker.js"></script>
+
+<!-- NouSlider -->
+<script src="../public/admin/js/plugins/nouslider/jquery.nouislider.min.js"></script>
+
+<!-- Switchery -->
+<script src="../public/admin/js/plugins/switchery/switchery.js"></script>
+
+<!-- IonRangeSlider -->
+<script src="../public/admin/js/plugins/ionRangeSlider/ion.rangeSlider.min.js"></script>
+
+<!-- iCheck -->
+<script src="../public/admin/js/plugins/iCheck/icheck.min.js"></script>
+
+<!-- MENU -->
+<script src="../public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+
+<!-- Color picker -->
+<script src="../public/admin/js/plugins/colorpicker/bootstrap-colorpicker.min.js"></script>
+
+<!-- Image cropper -->
+<script src="../public/admin/js/plugins/cropper/cropper.min.js"></script>
+
+<!-- Select2 -->
+<script src="../public/admin/js/plugins/select2/select2.full.min.js"></script>
+
+<!-- TouchSpin -->
+<script src="../public/admin/js/plugins/touchspin/jquery.bootstrap-touchspin.min.js"></script>
+
+<!-- Tags Input -->
+<script src="../public/admin/js/plugins/bootstrap-tagsinput/bootstrap-tagsinput.js"></script>
+
+<!-- Dual Listbox -->
+<script src="../public/admin/js/plugins/dualListbox/jquery.bootstrap-duallistbox.js"></script>
+<script>
+    $(document).ready(function () {
+        $('#data .input-group.date').datepicker({
+            startView: 1,
+            todayBtn: "linked",
+            keyboardNavigation: false,
+            forceParse: false,
+            autoclose: true,
+            format: "yyyy/mm/dd"
+        });
+    });
+
+    function upDateRegion(){
+        //获取到提交更新数据的form标签
+        let form = $('#update_region_form');
+        //获取区域编号
+        let region_id = $('#region_id').val()
+        //判断编号是否填写
+        if(region_id == "" || region_id == undefined){
+            alert('请填写区域编号之后再提交数据')
+            return
+        }
+        //获取区域名称
+        let region_name = $('#region_name').val()
+        //判断区域名称是否填写
+        if(region_name == "" || region_name == undefined){
+            alert('请填写区域名称')
+            return
+        }
+        //获取区域绑定的设备号
+        let equipment_region_id = $('#equipment_region_id').val()
+        //判断是否绑定设备
+        if(equipment_region_id == "" || equipment_region_id == undefined){
+            alert('请给该区域绑定设备号')
+            return
+        }
+        //创建时间
+        let region_regtime = $('#region_regtime').val()
+        //判断是否填写创建时间
+        if(region_regtime == "" || region_regtime == undefined){
+            alert('请填写创建时间')
+            return
+        }
+        
+        //如果全部必要信息都填写的话直接提交数据
+        form.submit()
+
+    }
+
+</script>
+{{ /block }}

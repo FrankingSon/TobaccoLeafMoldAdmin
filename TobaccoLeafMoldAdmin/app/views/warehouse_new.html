@@ -1,0 +1,105 @@
+{{ extend './layout.html' }}
+
+{{ block 'title' }}
+<title>新建仓库</title>
+{{ /block }}
+
+{{ block 'head' }}
+<link href="../public/admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="../public/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="../public/admin/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+<link href="../public/admin/css/animate.css" rel="stylesheet">
+<link href="../public/admin/css/style.css" rel="stylesheet">
+{{ /block }}
+
+{{ block 'content'}}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>新建仓库</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">仓库列表</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/warehouse/mange">仓库管理</a>
+            </li>
+            <li class="breadcrumb-item">
+                <strong>新建仓库</strong>
+            </li>
+        </ol>
+    </div>
+    <div class="col-lg-2">
+
+    </div>
+</div>
+
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5 style="padding-right: 30px">新建仓库</h5>
+
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <!-- <button type="button" id="addUser" class="btn btn-primary" >新建用户</button> -->
+                </div>
+                <div class="ibox-content">
+                    <form action="/warehouse/new" method="post">
+                        <div class="form-group">
+                            <label for="">仓库编号</label>
+                            <input type="text" class="form-control" id="" name="warehouse_id" required minlength="2"
+                                maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="">仓库名称</label>
+                            <input type="text" class="form-control" id="" name="warehouse_name" required minlength="2"
+                                maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="">仓库负责人</label>
+                            <input type="text" class="form-control" id="" name="warehouse_admin" required minlength="2"
+                                maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="">仓库地址</label>
+                            <input type="text" class="form-control" id="" name="warehouse_address" required
+                                minlength="2" maxlength="30">
+                        </div>
+                        <div class="form-group">
+                            <label for="">备注</label>
+                            <input type="text" class="form-control" id="" name="warehouse_notes" maxlength="30">
+                        </div>
+                        <button type="submit" class="btn btn-default">提交</button>
+                </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{ /block }}
+
+{{ block 'script'}}
+<!-- Mainly scripts -->
+<script src="../public/admin/js/jquery-3.1.1.min.js"></script>
+<script src="../public/admin/js/popper.min.js"></script>
+<script src="../public/admin/js/bootstrap.js"></script>
+<script src="../public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../public/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="../public/admin/js/plugins/dataTables/datatables.min.js"></script>
+<script src="../public/admin/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../public/admin/js/inspinia.js"></script>
+<script src="../public/admin/js/plugins/pace/pace.min.js"></script>
+
+<!-- Page-Level Scripts -->
+<script>
+</script>
+{{ /block }}

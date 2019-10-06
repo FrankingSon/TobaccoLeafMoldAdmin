@@ -1,0 +1,156 @@
+{{ extend './layout2.html' }}
+
+{{ block 'title' }}
+<title>区域管理</title>
+{{ /block }}
+
+{{ block 'head'}}
+<link href="../public/admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="../public/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="../public/admin/css/plugins/dataTables/datatables.min.css" rel="stylesheet">
+
+<link href="../public/admin/css/animate.css" rel="stylesheet">
+<link href="../public/admin/css/style.css" rel="stylesheet">
+{{ /block }}
+
+{{ block 'content' }}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>区域管理</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/">仓库列表</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>区域管理</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5 style="padding-right: 30px">区域列表</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                    <a class="btn btn-success" href="/region/new?id={{warehouse_id}}">新建区域</a>
+                </div>
+                <div class="ibox-content">
+                    <div class="table-responsive">
+                        <table class="table table-striped table-bordered table-hover dataTables-example">
+                            <thead>
+                                <tr>
+                                    <th>ID</th>
+                                    <th>区域编号</th>
+                                    <th>设备编号</th>
+                                    <th>区域名称</th>
+                                    <th>堆放时间</th>
+                                    <th>操作</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {{each regions}}
+                                <tr>
+                                    <td>{{ $index + 1}}</td>
+                                    <td>{{ $value.region_id }}</td>
+                                    <td>{{ $value.equipment_region_id }}</td>
+                                    <td>{{ $value.region_name }}</td>
+                                    <td>{{ $value.region_regtime }}</td>
+                                    <td>
+                                        <a href="/region?id={{$value.equipment_region_id}}">查看</a>
+                                        <a href="/region/edit?id={{$value._id}}">编辑</a>
+                                        <a href="javascript:deleteRegion();" data="{{$value._id}}" id="del_Region_btn">删除</a>
+                                    </td>
+                                </tr>
+                                {{/each}}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<div id="dialog">
+    <p id='dialog_content'></p>
+</div>
+
+{{ /block }}
+
+{{ block 'script' }}
+<!-- Mainly scripts -->
+<script src="../public/admin/js/jquery-3.1.1.min.js"></script>
+<script src="../public/admin/js/popper.min.js"></script>
+<script src="../public/admin/js/bootstrap.js"></script>
+<script src="../public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../public/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<script src="../public/admin/js/plugins/dataTables/datatables.min.js"></script>
+<script src="../public/admin/js/plugins/dataTables/dataTables.bootstrap4.min.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../public/admin/js/inspinia.js"></script>
+<script src="../public/admin/js/plugins/pace/pace.min.js"></script>
+
+<!-- jquery-ui javascript 使用javascrip-ui插件的js文件 -->
+<script src="../public/admin/js/plugins/jquery-ui/jquery-ui.min.css"></script>
+<script src="../public/admin/js/plugins/jquery-ui/jquery-ui.min.js"></script>
+
+<!-- Page-Level Scripts -->
+<script>
+    $(document).ready(function () {
+        $('.dataTables-example').DataTable({
+            pageLength: 10,
+            responsive: true,
+            dom: '<"html5buttons"B>lTfgitp',
+            buttons: [
+                { extend: 'copy' },
+                { extend: 'csv' },
+                { extend: 'excel', title: '用户列表' },
+                { extend: 'pdf', title: '用户列表' },
+                {
+                    extend: 'print',
+                    customize: function (win) {
+                        $(win.document.body).addClass('white-bg');
+                        $(win.document.body).css('font-size', '10px');
+                        $(win.document.body).find('table')
+                            .addClass('compact')
+                            .css('font-size', 'inherit');
+                    }
+                }
+            ]
+        });
+    });
+
+    function deleteRegion(){
+        let isDel = confirm("确定删除该区域信息吗？")
+        if(isDel === false){
+            return
+        }
+        let region_id = $("#del_Region_btn").attr('data')
+        $.ajax('http://127.0.0.1:3000/region/delete',{
+            method:'GET',
+            data:{_id:region_id},
+            success:function(result){
+                //将返回的json格式类型的字符串转换为json对象
+                let resultObj = jQuery.parseJSON(result)
+                if(resultObj.status==='ok'){
+                    //提示删除成功
+                    alert('删除成功')
+                    location.reload()
+                }
+            },
+            error:function(err){
+                alert(err)
+            }
+        })
+    }
+</script>
+{{ /block }}

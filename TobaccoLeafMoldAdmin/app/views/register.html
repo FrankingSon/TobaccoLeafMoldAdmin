@@ -1,0 +1,75 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>注册</title>
+
+    <link href="../public/admin/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../public/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+    <link href="../public/admin/css/plugins/iCheck/custom.css" rel="stylesheet">
+    <link href="../public/admin/css/animate.css" rel="stylesheet">
+    <link href="../public/admin/css/style.css" rel="stylesheet">
+
+</head>
+
+<body class="gray-bg">
+
+    <div class="middle-box text-center loginscreen   animated fadeInDown">
+        <div>
+            <h2>注册平台账户</h2>
+            <!--表单同步提交之后，无论服务端响应的结果是什么，都会直接把响应的结果覆盖掉当前的界面-->
+            <form id="register_form" class="m-t" role="form">
+                <div class="form-group">
+                    <input id="name" name="name" type="text" class="form-control" placeholder="用户名" required="">
+                </div>
+                <div class="form-group">
+                    <input id="password" name="password" type="password" class="form-control" placeholder="密码"
+                        required="">
+                </div>
+                <button type="submit" class="btn btn-primary block full-width m-b">注册</button>
+
+                <p class="text-muted text-center"><small>已经有一个帐户?</small></p>
+                <a class="btn btn-sm btn-white btn-block" href="/login">登录</a>
+            </form>
+            <p class="m-t"> <small>Copyright</strong> 烟叶霉变管理平台 1.0.0 &copy; 2019-2025</small> </p>
+        </div>
+    </div>
+
+    <!-- Mainly scripts -->
+    <script src="../public/admin/js/jquery-3.1.1.min.js"></script>
+    <script src="../public/admin/js/popper.min.js"></script>
+    <script src="../public/admin/js/bootstrap.js"></script>
+    <!-- iCheck -->
+    <script src="../public/admin/js/plugins/iCheck/icheck.min.js"></script>
+    <script>
+        $('#register_form').on('submit', function (e) {
+            e.preventDefault()
+            var formData = $(this).serialize()
+            $.ajax({
+                url: '/register',
+                type: 'post',
+                data: formData,
+                dataType: 'json',
+                success: function (data) {
+                    var err_code = data.err_code
+                    if (err_code === 0) {
+                        // window.alert('注册成功！')
+                        // 服务端重定向针对异步请求无效
+                        //在服务端res.redirect()没有反应，只针对同步请求有效
+                        window.location.href = '/'
+                    } else if (err_code === 1) {
+                        window.alert('用户名已存在！')
+                    } else if (err_code === 500) {
+                        window.alert('服务器忙，请稍后重试！')
+                    }
+                }
+            })
+        })
+    </script>
+</body>
+
+</html>

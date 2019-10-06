@@ -1,0 +1,134 @@
+﻿{{ extend './layout.html' }}
+
+{{ block 'title' }}
+<title>烟垛统计图表</title>
+{{ /block }}
+
+{{ block 'head' }}
+<link href="../public/admin/css/bootstrap.min.css" rel="stylesheet">
+<link href="../public/admin/font-awesome/css/font-awesome.css" rel="stylesheet">
+
+<link href="../public/admin/css/animate.css" rel="stylesheet">
+<link href="../public/admin/css/style.css" rel="stylesheet">
+{{ /block }}
+
+
+{{ block 'content'}}
+<div class="row wrapper border-bottom white-bg page-heading">
+    <div class="col-lg-10">
+        <h2>烟垛统计图表</h2>
+        <ol class="breadcrumb">
+            <li class="breadcrumb-item">
+                <a href="/index">主页</a>
+            </li>
+            <li class="breadcrumb-item">
+                <a href="/smoke_layout">烟垛管理</a>
+            </li>
+            <li class="breadcrumb-item active">
+                <strong>统计图表</strong>
+            </li>
+        </ol>
+    </div>
+</div>
+<div class="wrapper wrapper-content animated fadeInRight">
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>活动图</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart-moving"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>活动图</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart-moving1"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>活动图</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart-moving2"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6">
+            <div class="ibox ">
+                <div class="ibox-title">
+                    <h5>活动图</h5>
+                    <div class="ibox-tools">
+                        <a class="collapse-link">
+                            <i class="fa fa-chevron-up"></i>
+                        </a>
+                    </div>
+                </div>
+                <div class="ibox-content">
+                    <div class="flot-chart">
+                        <div class="flot-chart-content" id="flot-line-chart-moving3"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{{ /block }}
+
+{{ block 'script'}}
+<!-- Mainly scripts -->
+<script src="../public/admin/js/jquery-3.1.1.min.js"></script>
+<script src="../public/admin/js/popper.min.js"></script>
+<script src="../public/admin/js/bootstrap.js"></script>
+<script src="../public/admin/js/plugins/metisMenu/jquery.metisMenu.js"></script>
+<script src="../public/admin/js/plugins/slimscroll/jquery.slimscroll.min.js"></script>
+
+<!-- Flot -->
+<script src="../public/admin/js/plugins/flot/jquery.flot.js"></script>
+<script src="../public/admin/js/plugins/flot/jquery.flot.tooltip.min.js"></script>
+<script src="../public/admin/js/plugins/flot/jquery.flot.resize.js"></script>
+<script src="../public/admin/js/plugins/flot/jquery.flot.pie.js"></script>
+<script src="../public/admin/js/plugins/flot/jquery.flot.time.js"></script>
+
+<!-- Custom and plugin javascript -->
+<script src="../public/admin/js/inspinia.js"></script>
+<script src="../public/admin/js/plugins/pace/pace.min.js"></script>
+
+<!-- Flot demo data -->
+<script src="../public/admin/js/demo/flot-demo.js"></script>
+<script src="../public/admin/js/plugins/chartJs/Chart.min.js"></script>
+<script src="../public/admin/js/demo/chartjs-demo.js"></script>
+{{ /block }}

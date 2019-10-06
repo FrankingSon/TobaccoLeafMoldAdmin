@@ -1,0 +1,37 @@
+{
+  "name": "app",
+  "version": "0.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "art-template": "^4.13.2",
+    "blueimp-md5": "^2.12.0",
+    "body-parser": "^1.19.0",
+    "bootstrap": "^4.3.1",
+    "chai": "^4.1.1",
+    "cookie-parser": "~1.4.4",
+    "debug": "~2.6.9",
+    "del": "^2.2.2",
+    "express": "~4.16.1",
+    "express-art-template": "^1.0.1",
+    "express-session": "^1.16.2",
+    "gulp": "^3.9.1",
+    "gulp-concat": "^2.6.0 ",
+    "gulp-header": "^1.8.8",
+    "gulp-if": "^2.0.1",
+    "gulp-minify-css": "^1.2.4",
+    "gulp-rename": "^1.2.2",
+    "gulp-replace": "^0.6.1",
+    "gulp-uglify": "^1.5.4",
+    "http-errors": "~1.6.3",
+    "jade": "~1.11.0",
+    "minimist": "^1.2.0",
+    "mocha": "^3.2.0",
+    "mongoose": "^5.7.1",
+    "morgan": "~1.9.1",
+    "sinon": "^3.2.1",
+    "sinon-chai": "^2.13.0"
+  }
+}
