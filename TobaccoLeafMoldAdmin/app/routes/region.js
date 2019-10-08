@@ -17,6 +17,12 @@ region.get('/region', function (req, res) {
     }
     console.log(region[0].equipment_region_id)
     Sensor.find().where('equipment_sensor_id', region[0].equipment_region_id).limit(5).exec(function (err, sensors) {
+    //得到该区域所绑定的设备编号
+    let equipment_sensor_id = region[0].equipment_region_id
+    //3.根据绑定的设备ID查询设备下的传感器 
+    //4.每次查询获取最新的一条数据
+    Sensor.find().where('equipment_sensor_id', equipment_sensor_id).limit(5).exec(function (err, sensors) {
+
       if (err) {
         return res.status(500).send('Server error.')
       }
@@ -24,11 +30,14 @@ region.get('/region', function (req, res) {
       res.render('region.html', {
         warehouse_id: req.session.warehouse_id,
         region_id: req.session.region_id,
-        sensors:sensors
+        sensors:sensors,
+        equipment_sensor_id:equipment_sensor_id
       })
     })
   })
 })
+})
+
 //2.请求区域管理界面
 region.get('/region/mange', function (req, res) {
   Region.find().where('warehouse_region_id', req.query.id).exec(function (err, regions) {
@@ -147,6 +156,27 @@ region.get('/region/delete', async (request, response) => {
       response.send(response_json)
     })
   })
+})
+
+//响应ajax请求进行传感器数据的查询，返回给页面进行渲染
+region.get("/region/getSensorData",(request,response)=>{
+  //查询数据库中传感器采集的数据，然后返回给给客户端页面进行渲染
+
+  //这里使用随机数模拟从数据库中查询出来的数据返回给客户端页面进行渲染
+  let allData = [];
+  for (let i = 0; i < 4; ++i) {
+      let first = "数据" + i
+      let DataArr = [first]
+      for (let j = 0; j < 12; ++j) {
+          let digit = Math.floor(Math.random() * 30 + 1) * 10 + 30
+          DataArr.push(digit)
+      }
+      allData.push(DataArr)
+  }
+  let DataObj = {"DataArr":allData}
+  let DataStr = JSON.stringify(DataObj)
+  response.send(DataStr)
+
 })
 
 module.exports = region

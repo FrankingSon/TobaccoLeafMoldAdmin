@@ -143,6 +143,8 @@
         </div>
     </div>
 </div>
+<input id="equipment_id_search" type="hidden" value="{{equipment_sensor_id}}"/>
+
 {{ /block }}
 
 {{ block 'script'}}
@@ -220,40 +222,51 @@
 </script>
 <script>
     function paintChart() {
-        //调用随机函数生成随机数字
-        var DS = createDigits();
-        c3.generate({
-            bindto: '#slineChart',
-            data: {
-                columns: [
-                    // ['数据1', 30, 200, 100, 400, 150, 250],
-                    // ['数据2', 130, 100, 140, 200, 150, 50]
-                    DS[0],
-                    DS[1]
-                ],
-                colors: {
-                    data1: '#1ab394',
-                    data2: '#BABABA'
-                },
-                type: 'spline'
+        let equipment_id_search = $("#equipment_id_search").val()
+        //使用ajax发送请求，然后将服务器从
+        //数据库查询出最新的传感器数据渲染到页面
+        $.ajax('http://127.0.0.1:3000/region/getSensorData',{
+            method:'GET',
+            data:{equipment_id:equipment_id_search},
+            success:function(result){
+                //将返回的json格式类型的字符串转换为json对象
+                let resultObj = jQuery.parseJSON(result)
+                let DataArr = resultObj.DataArr
+                c3.generate({
+                    bindto: '#slineChart',
+                    data: {
+                        columns: [
+                            DataArr[0],
+                            DataArr[1]
+                        ],
+                        colors: {
+                            data1: '#1ab394',
+                            data2: '#BABABA'
+                        },
+                        type: 'spline'
+                    }
+                });
+                c3.generate({
+                    bindto: '#slineChart2',
+                    data: {
+                        columns: [
+                            // ['数据1', 30, 200, 100, 400, 150, 250],
+                            // ['数据2', 130, 100, 140, 200, 150, 50]
+                            DataArr[2],
+                            DataArr[3]
+                        ],
+                        colors: {
+                            data1: '#1ab394',
+                            data2: '#BABABA'
+                        },
+                        type: 'spline'
+                    }
+                });
+            },
+            error:function(err){
+                alert("err : "+err)
             }
-        });
-        c3.generate({
-            bindto: '#slineChart2',
-            data: {
-                columns: [
-                    // ['数据1', 30, 200, 100, 400, 150, 250],
-                    // ['数据2', 130, 100, 140, 200, 150, 50]
-                    DS[2],
-                    DS[3]
-                ],
-                colors: {
-                    data1: '#1ab394',
-                    data2: '#BABABA'
-                },
-                type: 'spline'
-            }
-        });
+        })
 
     }
     $(document).ready(function () {
@@ -280,7 +293,7 @@
 
     //使用定时器 对 paintChart函数每10秒执行一次
     $(function () {
-        setInterval("paintChart()", 5000);
+        setInterval("paintChart()", 10000);
     })
 </script>
 {{ /block }}
