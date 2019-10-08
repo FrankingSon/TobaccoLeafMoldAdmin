@@ -70,24 +70,17 @@
                                 </tr>
                             </thead>
                             <tbody>
+                                {{ each regions }}
                                 <tr>
-                                    <td>1</td>
-                                    <td>T-001</td>
-                                    <td>温度传感器1</td>
-                                    <td>23.6</td>
+                                    <td>{{ $index + 1}}</td>
+                                    <td>{{ $value.sensor_id }}</td>
+                                    <td>{{ $value.sensor_name }}</td>
+                                    <td>{{ $value.sensor_value }}</td>
                                     <td>20-30</td>
                                     <td>℃</td>
                                     <td>正常</td>
                                 </tr>
-                                <tr>
-                                    <td>2</td>
-                                    <td>H-001</td>
-                                    <td>湿度传感器1</td>
-                                    <td>43.6</td>
-                                    <td>60-65</td>
-                                    <td>%RH</td>
-                                    <td>偏低</td>
-                                </tr>
+                                {{/each}}
                             </tbody>
                         </table>
                     </div>
@@ -212,7 +205,7 @@
     });
 </script>
 <script>
-    function paintChart(){
+    function paintChart() {
         //调用随机函数生成随机数字
         var DS = createDigits();
         c3.generate({
@@ -221,8 +214,8 @@
                 columns: [
                     // ['数据1', 30, 200, 100, 400, 150, 250],
                     // ['数据2', 130, 100, 140, 200, 150, 50]
-                        DS[0],
-                        DS[1]
+                    DS[0],
+                    DS[1]
                 ],
                 colors: {
                     data1: '#1ab394',
@@ -247,7 +240,7 @@
                 type: 'spline'
             }
         });
-    
+
     }
     $(document).ready(function () {
         //页面加载的时候，执行绘图函数
@@ -255,14 +248,14 @@
     });
     //定时的根据数据进行线性图的绘制
     //模拟获取了数据---这里使用随机函数生成一组数字
-    function createDigits(){
+    function createDigits() {
         var allData = [];
-        var d1 = Math.floor(Math.random()*30 + 1) * 10;
-        for(var i = 0; i < 4; ++i){
+        var d1 = Math.floor(Math.random() * 30 + 1) * 10;
+        for (var i = 0; i < 4; ++i) {
             var first = "数据" + i;
             var DataArr = [first]
-            for(var j = 0; j < 12; ++j){
-                var digit = Math.floor(Math.random()*30 + 1) * 10 + 30;
+            for (var j = 0; j < 12; ++j) {
+                var digit = Math.floor(Math.random() * 30 + 1) * 10 + 30;
                 DataArr.push(digit)
             }
             allData.push(DataArr)
@@ -272,8 +265,8 @@
     }
 
     //使用定时器 对 paintChart函数每10秒执行一次
-    $(function(){
-        setInterval("paintChart()",5000);
+    $(function () {
+        setInterval("paintChart()", 5000);
     })
 </script>
 {{ /block }}

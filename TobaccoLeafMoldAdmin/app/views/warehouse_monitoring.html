@@ -233,50 +233,21 @@
                             <tbody>
                             {{each regions}}
                                 <tr>
+<<<<<<< HEAD
                                     <td>{{$index + 1}}</td>
+=======
+                                    <td>{{$index+1}}</td>
+>>>>>>> b8cade99b9d69f1520b13cf17eaf9e6904adb00d
                                     <td>{{$value.region_id}}</td>
                                     <td>{{$value.region_regtime}}</td>
                                     <td>23℃</td>
                                     <td>55RH%</td>
                                     <td>正常</td>
                                     <td>
-                                        <a href="/region">进入</a>
+                                        <a href="/region?id={{$value.region_id}}">进入</a>
                                     </td>
                                 </tr>
                             {{ /each }}
-                                <!-- <tr>
-                                    <td>2</td>
-                                    <td>A-002</td>
-                                    <td>2019-9-23</td>
-                                    <td>23℃</td>
-                                    <td>55RH%</td>
-                                    <td>正常</td>
-                                    <td>
-                                        <a href="#">进入</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>3</td>
-                                    <td>A-003</td>
-                                    <td>2019-9-23</td>
-                                    <td>23℃</td>
-                                    <td>55RH%</td>
-                                    <td>正常</td>
-                                    <td>
-                                        <a href="#">进入</a>
-                                    </td>
-                                </tr>
-                                <tr>
-                                    <td>4</td>
-                                    <td>A-004</td>
-                                    <td>2019-9-23</td>
-                                    <td>23℃</td>
-                                    <td>55RH%</td>
-                                    <td>正常</td>
-                                    <td>
-                                        <a href="#">进入</a>
-                                    </td>
-                                </tr> -->
                             </tbody>
                         </table>
                     </div>
