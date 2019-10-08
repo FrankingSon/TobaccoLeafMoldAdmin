@@ -10,19 +10,13 @@ var region = express.Router()
 region.get('/region', function (req, res) {
   //1.把仓库id存储到session中
   req.session.region_id = req.query.id
-  console.log(req.query.id)
   //2.先进行区域所绑定的设备查询
   Region.find().where('region_id', req.query.id).exec(function (err, region) {
     if (err) {
       return res.status(500).send('Server error.')
     }
-    //得到该区域所绑定的设备编号
-    console.log(region)
-    var equipment_sensor_id = region.equipment_region_id
-    console.log(region.equipment_region_id)
-    //3.根据绑定的设备ID查询设备下的传感器 
-    //4.每次查询获取最新的一条数据
-    Sensor.find().where('equipment_sensor_id', equipment_sensor_id).limit(5).exec(function (err, sensors) {
+    console.log(region[0].equipment_region_id)
+    Sensor.find().where('equipment_sensor_id', region[0].equipment_region_id).limit(5).exec(function (err, sensors) {
       if (err) {
         return res.status(500).send('Server error.')
       }
@@ -30,7 +24,6 @@ region.get('/region', function (req, res) {
       res.render('region.html', {
         warehouse_id: req.session.warehouse_id,
         region_id: req.session.region_id,
-        equipment_sensor_id:equipment_sensor_id,
         sensors:sensors
       })
     })

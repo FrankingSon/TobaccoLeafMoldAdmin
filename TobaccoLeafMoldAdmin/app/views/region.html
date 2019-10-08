@@ -70,15 +70,29 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {{ each regions }}
+                                {{ each sensors }}
                                 <tr>
                                     <td>{{ $index + 1}}</td>
                                     <td>{{ $value.sensor_id }}</td>
                                     <td>{{ $value.sensor_name }}</td>
                                     <td>{{ $value.sensor_value }}</td>
+                                    {{if $value.type == 0}}
                                     <td>20-30</td>
                                     <td>℃</td>
+                                    {{else if $value.type == 1}}
+                                    <td>60-70</td>
+                                    <td>%RH</td>
+                                    {{else if $value.type == 2}}
+                                    <td>400-1000</td>
+                                    <td>PPM</td>   
+                                    {{/if}} 
+                                    {{if $value.flag == 0}}   
                                     <td>正常</td>
+                                    {{else if $value.flag == 1}}
+                                    <td>过高</td>
+                                    {{else if $value.flag == 2}}
+                                    <td>过低</td>
+                                    {{/if}} 
                                 </tr>
                                 {{/each}}
                             </tbody>
