@@ -65,7 +65,7 @@
                                     <td>
                                         <a href="/region?id={{$value.equipment_region_id}}">查看</a>
                                         <a href="/region/edit?id={{$value._id}}">编辑</a>
-                                        <a href="javascript:deleteRegion();" data="{{$value._id}}" id="del_Region_btn">删除</a>
+                                        <a href="javascript:deleteRegion({{$value._id}});" data="{{$value._id}}" id="del_Region_btn">删除</a>
                                     </td>
                                 </tr>
                                 {{/each}}
@@ -129,15 +129,15 @@
         });
     });
 
-    function deleteRegion(){
+    function deleteRegion(del_id){
         let isDel = confirm("确定删除该区域信息吗？")
         if(isDel === false){
             return
         }
-        let region_id = $("#del_Region_btn").attr('data')
+        
         $.ajax('http://127.0.0.1:3000/region/delete',{
             method:'GET',
-            data:{_id:region_id},
+            data:{_id:del_id},
             success:function(result){
                 //将返回的json格式类型的字符串转换为json对象
                 let resultObj = jQuery.parseJSON(result)
